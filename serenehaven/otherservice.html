@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SERENE HAVEN - Other Services</title>
+  <link rel="icon" type="image/png" href="logo/logo2.png">
+  <!-- Change from script to link for Tailwind CSS -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/ScrollTrigger.min.js"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Raleway:wght@300;400;600&display=swap');
+    
+    body {
+      font-family: 'Raleway', sans-serif;
+      scroll-behavior: smooth;
+    }
+    
+    h1, h2, h3, h4 {
+      font-family: 'Playfair Display', serif;
+    }
+    
+    .hero-gradient {
+      background: linear-gradient(to right, #134e5e, #71b280);
+    }
+    
+    .service-card {
+      transition: all 0.3s ease-in-out;
+    }
+    
+    .service-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    }
+    
+    .animate-fade-in {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    
+    .footer-gradient {
+      background: linear-gradient(to right, #134e5e, #71b280);
+    }
+  </style>
+</head>
+<body class="bg-gray-50">
+  <!-- Navbar -->
+  <nav class="bg-white shadow-md fixed w-full z-10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between h-16">
+        <div class="flex items-center">
+          <div class="text-2xl font-bold text-green-800">SERENE HAVEN</div>
+        </div>
+        <div class="flex items-center">
+          <div class="hidden md:block">
+            <div class="ml-10 flex items-baseline space-x-4">
+              <a href="index.html#home" class="text-gray-700 hover:text-green-800 px-3 py-2 rounded-md text-sm font-medium transition-all duration-300">Home</a>
+              <a href="index.html#about" class="text-gray-700 hover:text-green-800 px-3 py-2 rounded-md text-sm font-medium transition-all duration-300">About</a>
+              <a href="index.html#businesses" class="text-gray-700 hover:text-green-800 px-3 py-2 rounded-md text-sm font-medium transition-all duration-300">Our Businesses</a>
+              <a href="index.html#contact" class="text-gray-700 hover:text-green-800 px-3 py-2 rounded-md text-sm font-medium transition-all duration-300">Contact</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero-gradient text-white pt-32 pb-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h1 class="text-5xl md:text-6xl font-bold mb-6 animate-fade-in">Other Services</h1>
+      <p class="text-xl md:text-2xl mb-10 max-w-3xl mx-auto animate-fade-in">Discover our specialized services designed to complement your Serene Haven experience.</p>
+    </div>
+  </section>
+
+  <!-- Services Introduction -->
+  <section class="py-16 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl font-bold text-gray-900 mb-4 animate-fade-in">Our Additional Offerings</h2>
+        <div class="w-24 h-1 bg-green-800 mx-auto mb-8 animate-fade-in"></div>
+        <p class="text-lg text-gray-600 max-w-3xl mx-auto animate-fade-in">
+          Beyond our core hospitality and products, Serene Haven offers a range of specialized services to enhance your experience. 
+          Each service embodies our commitment to excellence and tranquility.
+        </p>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Services Section -->
+  <section class="py-16 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <!-- Service 1 -->
+        <div class="service-card bg-white rounded-xl overflow-hidden shadow-lg animate-fade-in">
+          <div class="h-48 bg-green-100 flex items-center justify-center">
+            <img src="logo/dclogo.png" alt="Doctor Wallet" class="w-full h-full object-cover" />
+          </div>
+          <div class="p-6">
+            <h3 class="text-2xl font-bold text-gray-900 mb-3">Doctor Wallet</h3>
+            <p class="text-gray-600 mb-4">
+              Empower your clinic with a smart and seamless digital management system. Doctor Wallet provides an all-in-one platform for patient records, lab reports, visit schedules, and communication, helping clinics operate efficiently and professionally.
+            </p>
+            <p class="text-gray-600 mb-4">Our system ensures fast access to patient data, secure report handling, and smooth coordination between doctors, staff, and patients.</p>
+            <ul class="text-gray-600 mb-6 list-disc list-inside">
+              <li>Complete patient record management</li>
+              <li>Automatic lab report updates & tracking</li>
+              <li>Next-visit scheduling and reminders</li>
+              <li>Linked child-parent patient profiles</li>
+              <li>SMS delivery status and notifications</li>
+              <li>Accessible through mobile and desktop portals</li>
+            </ul>
+            <p class="text-gray-600 mb-4"><strong>Doctor Wallet streamlines your clinic so you can focus on delivering better care.</strong></p>
+            <a href="http://thedcwallet.ct.ws" class="inline-block bg-green-800 text-white px-6 py-2 rounded font-medium hover:bg-green-700 transition-all duration-300">Try now</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Custom Services Section -->
+  <section class="py-16 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="bg-gray-50 rounded-xl shadow-lg p-8 md:p-12">
+        <div class="md:flex items-center">
+          <div class="md:w-2/3 pr-8">
+            <h2 class="text-3xl font-bold text-gray-900 mb-4 animate-fade-in">Custom Services</h2>
+            <p class="text-gray-600 mb-6 animate-fade-in">
+              Looking for something specific? We're committed to accommodating your unique needs. Our team can create bespoke services 
+              tailored to your exact requirements, ensuring a truly personalized Serene Haven experience.
+            </p>
+            <ul class="text-gray-600 mb-6 list-disc list-inside animate-fade-in">
+              <li>Specialized celebrations and ceremonies</li>
+              <li>Custom wellness or adventure packages</li>
+              <li>Long-term accommodations with additional services</li>
+              <li>Exclusive membership programs</li>
+            </ul>
+            <a href="#contact-form" class="inline-block bg-green-800 text-white px-6 py-3 rounded font-medium hover:bg-green-700 transition-all duration-300 animate-fade-in">
+              Inquire About Custom Services
+            </a>
+          </div>
+          <div class="md:w-1/3 mt-8 md:mt-0">
+            <div class="bg-green-100 h-64 rounded-lg shadow-md animate-fade-in flex items-center justify-center">
+              <img src="logo/cover photo.png" alt="Custom Services" class="rounded-lg w-full h-full object-cover" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="py-16 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl font-bold text-gray-900 mb-4 animate-fade-in">Frequently Asked Questions</h2>
+        <div class="w-24 h-1 bg-green-800 mx-auto mb-8 animate-fade-in"></div>
+      </div>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div class="bg-white p-6 rounded-lg shadow-md animate-fade-in">
+          <h3 class="text-xl font-bold text-gray-900 mb-3">How does Doctor Wallet help manage my clinic efficiently?</h3>
+          <p class="text-gray-600">
+            Doctor Wallet streamlines daily clinic operations by providing an all-in-one digital platform for managing patient records, lab reports, next-visit schedules, child-linked profiles, and SMS updates. It reduces manual work, improves accuracy, and allows doctors and staff to access important information quickly from both mobile and desktop systems—making clinic management faster, organized, and more professional.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Form Section -->
+  <section id="contact-form" class="py-16 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl font-bold text-gray-900 mb-4 animate-fade-in">Contact Us About Our Services</h2>
+        <div class="w-24 h-1 bg-green-800 mx-auto mb-8 animate-fade-in"></div>
+        <p class="text-lg text-gray-600 max-w-3xl mx-auto animate-fade-in">
+          Interested in learning more about our services or ready to make a reservation? 
+          Fill out the form below and our team will reach out to you promptly.
+        </p>
+      </div>
+      
+      <div class="max-w-3xl mx-auto">
+        <div class="bg-gray-50 p-8 rounded-lg shadow-md animate-fade-in">
+          <!-- Success and error messages -->
+          <div id="success-message" class="hidden bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-4">
+            <p>Your inquiry has been submitted successfully. We'll contact you soon!</p>
+          </div>
+          <div id="error-message" class="hidden bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
+            <p>There was an error submitting your inquiry. Please try again.</p>
+          </div>
+          
+          <form id="inquiry-form">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+              <div>
+                <label for="first-name" class="block text-gray-700 mb-2">First Name <span class="text-red-500">*</span></label>
+                <input type="text" id="first-name" name="firstName" required class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-800 focus:border-transparent">
+              </div>
+              
+              <div>
+                <label for="last-name" class="block text-gray-700 mb-2">Last Name <span class="text-red-500">*</span></label>
+                <input type="text" id="last-name" name="lastName" required class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-800 focus:border-transparent">
+              </div>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+              <div>
+                <label for="email" class="block text-gray-700 mb-2">Email Address <span class="text-red-500">*</span></label>
+                <input type="email" id="email" name="email" required class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-800 focus:border-transparent">
+              </div>
+              
+              <div>
+                <label for="phone" class="block text-gray-700 mb-2">Phone Number <span class="text-red-500">*</span></label>
+                <input type="tel" id="phone" name="phone" required class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-800 focus:border-transparent">
+              </div>
+            </div>
+            
+            <div class="mb-6">
+              <label for="service-interest" class="block text-gray-700 mb-2">Service of Interest <span class="text-red-500">*</span></label>
+              <select id="service-interest" name="service" required class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-800 focus:border-transparent">
+                <option value="">Select a Service</option>
+                <option value="dcwallet">Doctor Wallet</option>
+                <option value="" disabled>Coming Soon</option>
+              </select>
+            </div>
+            
+            <div class="mb-6">
+              <label for="message" class="block text-gray-700 mb-2">Your Message <span class="text-red-500">*</span></label>
+              <textarea id="message" name="message" required rows="5" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-800 focus:border-transparent"></textarea>
+            </div>
+            
+            <div class="mb-6">
+              <label class="flex items-center">
+                <input type="checkbox" name="newsletter" class="form-checkbox h-5 w-5 text-green-800">
+                <span class="ml-2 text-gray-700">Sign up for our newsletter to receive updates and special offers</span>
+              </label>
+            </div>
+            
+            <button type="submit" class="bg-green-800 text-white px-8 py-3 rounded-md font-medium hover:bg-green-700 transition-all duration-300 w-full md:w-auto">Submit Inquiry</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer-gradient text-white py-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+        <div>
+          <h3 class="text-xl font-bold mb-4">SERENE HAVEN</h3>
+          <p class="text-gray-200">Creating moments of tranquility through exceptional experiences and products.</p>
+        </div>
+        
+        <div>
+          <h4 class="text-lg font-medium mb-4">Our Businesses</h4>
+          <ul class="space-y-2">
+            <li><a href="index.html" class="text-gray-200 hover:text-white transition-all duration-300">Home</a></li>
+            <li><a href="guesthouses.html" class="text-gray-200 hover:text-white transition-all duration-300">Guest Houses</a></li>
+            <li><a href="products.html" class="text-gray-200 hover:text-white transition-all duration-300">Products</a></li>
+            <li><a href="hotels.html" class="text-gray-200 hover:text-white transition-all duration-300">Hotels</a></li>
+          </ul>
+        </div>
+        
+        <div>
+          <h4 class="text-lg font-medium mb-4">Quick Links</h4>
+          <ul class="space-y-2">
+            <li><a href="index.html#home" class="text-gray-200 hover:text-white transition-all duration-300">Home</a></li>
+            <li><a href="index.html#about" class="text-gray-200 hover:text-white transition-all duration-300">About</a></li>
+            <li><a href="index.html#businesses" class="text-gray-200 hover:text-white transition-all duration-300">Our Businesses</a></li>
+            <li><a href="index.html#contact" class="text-gray-200 hover:text-white transition-all duration-300">Contact</a></li>
+          </ul>
+        </div>
+        
+        <div>
+          <h4 class="text-lg font-medium mb-4">Connect With Us</h4>
+          <div class="flex space-x-4">
+            <a href="#" class="text-gray-200 hover:text-white transition-all duration-300">
+              <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path fill-rule="evenodd" d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" clip-rule="evenodd"></path>
+              </svg>
+            </a>
+            <a href="#" class="text-gray-200 hover:text-white transition-all duration-300">
+              <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path fill-rule="evenodd" d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.067.06 1.407.06 4.123v.08c0 2.643-.012 2.987-.06 4.043-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.067.048-1.407.06-4.123.06h-.08c-2.643 0-2.987-.012-4.043-.06-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.047-1.024-.06-1.379-.06-3.808v-.63c0-2.43.013-2.784.06-3.808.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772A4.902 4.902 0 015.45 2.525c.636-.247 1.363-.416 2.427-.465C8.901 2.013 9.256 2 11.685 2h.63zm-.081 1.802h-.468c-2.456 0-2.784.011-3.807.058-.975.045-1.504.207-1.857.344-.467.182-.8.398-1.15.748-.35.35-.566.683-.748 1.15-.137.353-.3.882-.344 1.857-.047 1.023-.058 1.351-.058 3.807v.468c0 2.456.011 2.784.058 3.807.045.975.207 1.504.344 1.857.182.466.399.8.748 1.15.35.35.683.566 1.15.748.353.137.882.3 1.857.344 1.054.048 1.37.058 4.041.058h.08c2.597 0 2.917-.01 3.96-.058.976-.045 1.505-.207 1.858-.344.466-.182.8-.398 1.15-.748.35-.35.566-.683.748-1.15.137-.353.3-.882.344-1.857.048-1.055.058-1.37.058-4.041v-.08c0-2.597-.01-2.917-.058-3.96-.045-.976-.207-1.505-.344-1.858a3.097 3.097 0 00-.748-1.15 3.098 3.098 0 00-1.15-.748c-.353-.137-.882-.3-1.857-.344-1.023-.047-1.351-.058-3.807-.058zM12 6.865a5.135 5.135 0 110 10.27 5.135 5.135 0 010-10.27zm0 1.802a3.333 3.333 0 100 6.666 3.333 3.333 0 000-6.666zm5.338-3.205a1.2 1.2 0 110 2.4 1.2 1.2 0 010-2.4z" clip-rule="evenodd"></path>
+              </svg>
+            </a>
+            <a href="#" class="text-gray-200 hover:text-white transition-all duration-300">
+              <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84"></path>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+      
+      <div class="mt-12 pt-8 border-t border-gray-700 text-center text-gray-300">
+        <p>&copy; 2025 Serene Haven. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+  <script>
+    // Wait for the document to be fully loaded
+    document.addEventListener('DOMContentLoaded', function() {
+      // Initialize GSAP and ScrollTrigger
+      gsap.registerPlugin(ScrollTrigger);
+      
+      // Fade in animations on scroll
+      const fadeElements = document.querySelectorAll('.animate-fade-in');
+      
+      fadeElements.forEach(element => {
+        gsap.fromTo(element, 
+          { opacity: 0, y: 30 },
+          { 
+            opacity: 1, 
+            y: 0, 
+            duration: 0.8,
+            scrollTrigger: {
+              trigger: element,
+              start: "top bottom-=100",
+              toggleActions: "play none none none"
+            }
+          }
+        );
+      });
+      
+      // Smooth scrolling for anchor links
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+          e.preventDefault();
+          const target = document.querySelector(this.getAttribute('href'));
+          window.scrollTo({
+            top: target.offsetTop - 70,
+            behavior: 'smooth'
+          });
+        });
+      });
+    });
+  </script>
+  <script>
+document.addEventListener('DOMContentLoaded', function () {
+    const form = document.getElementById('inquiry-form');
+    const successMessage = document.getElementById('success-message');
+    const errorMessage = document.getElementById('error-message');
+
+    form.addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        let formData = new FormData(form);
+
+        fetch('submit_inquiry.php', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log("Server Response:", data); // Debugging
+            if (data.success) {
+                successMessage.classList.remove('hidden');
+                errorMessage.classList.add('hidden');
+                form.reset();
+                setTimeout(() => {
+                    successMessage.classList.add('hidden');
+                }, 5000);
+            } else {
+                errorMessage.textContent = data.message;
+                errorMessage.classList.remove('hidden');
+                console.error("Error:", data.message);
+            }
+        })
+        .catch(error => {
+            console.error('Error submitting inquiry:', error);
+            errorMessage.textContent = "An error occurred. Please try again.";
+            errorMessage.classList.remove('hidden');
+        });
+    });
+});
+
+  </script>
+  </body>
+  </html>

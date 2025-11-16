@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SERENE HAVEN - Admin Dashboard</title>
+  <link rel="icon" type="image/png" href="logo/logo2.png">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Raleway:wght@300;400;600&display=swap');
+    
+    body {
+      font-family: 'Raleway', sans-serif;
+    }
+    
+    h1, h2, h3, h4 {
+      font-family: 'Playfair Display', serif;
+    }
+    
+    .admin-gradient {
+      background: linear-gradient(to right, #134e5e, #71b280);
+    }
+    
+    .pending {
+      background-color: #FEF3C7;
+      color: #92400E;
+    }
+    
+    .accepted {
+      background-color: #D1FAE5;
+      color: #065F46;
+    }
+    
+    .rejected {
+      background-color: #FEE2E2;
+      color: #B91C1C;
+    }
+  </style>
+</head>
+<body class="bg-gray-50">
+  <!-- Admin Navbar -->
+  <nav class="admin-gradient text-white shadow-md w-full z-10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between h-16">
+        <div class="flex items-center">
+          <div class="text-2xl font-bold">SERENE HAVEN ADMIN</div>
+        </div>
+        <div class="flex items-center">
+          <div class="ml-10 flex items-baseline space-x-4">
+            <a href="index.html" class="text-white hover:text-gray-200 px-3 py-2 rounded-md text-sm font-medium transition-all duration-300">Return to Site</a>
+            <a href="#" class="bg-white text-green-800 px-3 py-2 rounded-md text-sm font-medium">Inquiries Dashboard</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+    <div class="flex justify-between items-center mb-8">
+      <h1 class="text-3xl font-bold text-gray-900">Inquiry Management</h1>
+      
+      <div class="flex space-x-4">
+        <button id="refresh-btn" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md transition-all duration-300">
+          Refresh Data
+        </button>
+        <select id="status-filter" class="border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-green-800 focus:border-transparent">
+          <option value="all">All Inquiries</option>
+          <option value="pending">Pending</option>
+          <option value="accepted">Accepted</option>
+          <option value="rejected">Rejected</option>
+        </select>
+      </div>
+    </div>
+    
+    <!-- Statistics Cards -->
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+      <div class="bg-white p-6 rounded-lg shadow-md">
+        <h3 class="text-gray-500 text-sm font-medium mb-1">Total Inquiries</h3>
+        <p id="total-count" class="text-3xl font-bold text-gray-900">0</p>
+      </div>
+      
+      <div class="bg-white p-6 rounded-lg shadow-md">
+        <h3 class="text-gray-500 text-sm font-medium mb-1">Pending</h3>
+        <p id="pending-count" class="text-3xl font-bold text-yellow-600">0</p>
+      </div>
+      
+      <div class="bg-white p-6 rounded-lg shadow-md">
+        <h3 class="text-gray-500 text-sm font-medium mb-1">Accepted</h3>
+        <p id="accepted-count" class="text-3xl font-bold text-green-600">0</p>
+      </div>
+      
+      <div class="bg-white p-6 rounded-lg shadow-md">
+        <h3 class="text-gray-500 text-sm font-medium mb-1">Rejected</h3>
+        <p id="rejected-count" class="text-3xl font-bold text-red-600">0</p>
+      </div>
+    </div>
+    
+    <!-- Inquiries Table -->
+    <div class="bg-white shadow-md rounded-lg overflow-hidden mb-8">
+      <div class="overflow-x-auto">
+        <table class="min-w-full divide-y divide-gray-200">
+          <thead class="bg-gray-50">
+            <tr>
+              <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
+              <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Customer</th>
+              <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Service</th>
+              <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+              <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Contact</th>
+              <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+            </tr>
+          </thead>
+          <tbody id="inquiries-table-body" class="bg-white divide-y divide-gray-200">
+            <!-- Table content will be populated by JavaScript -->
+            <tr>
+              <td colspan="6" class="px-6 py-4 text-center text-gray-500">
+                No inquiries found. Inquiries submitted through the contact form will appear here.
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    
+    <!-- Inquiry Detail Modal -->
+    <div id="inquiry-modal" class="fixed inset-0 bg-gray-500 bg-opacity-75 flex items-center justify-center hidden">
+      <div class="bg-white rounded-lg shadow-xl max-w-2xl w-full mx-4 overflow-hidden">
+        <div class="px-6 py-4 bg-green-800 text-white flex justify-between items-center">
+          <h3 class="text-xl font-bold" id="modal-title">Inquiry Details</h3>
+          <button id="close-modal" class="text-white hover:text-gray-200 focus:outline-none">
+            <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+          </button>
+        </div>
+        <div class="p-6">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+            <div>
+              <p class="text-sm text-gray-500">Customer Name</p>
+              <p id="modal-name" class="font-medium text-gray-900">John Doe</p>
+            </div>
+            <div>
+              <p class="text-sm text-gray-500">Service Requested</p>
+              <p id="modal-service" class="font-medium text-gray-900">Wellness Retreat</p>
+            </div>
+            <div>
+              <p class="text-sm text-gray-500">Email</p>
+              <p id="modal-email" class="font-medium text-gray-900">john@example.com</p>
+            </div>
+            <div>
+              <p class="text-sm text-gray-500">Phone</p>
+              <p id="modal-phone" class="font-medium text-gray-900">+1 123-456-7890</p>
+            </div>
+            <div>
+              <p class="text-sm text-gray-500">Submission Date</p>
+              <p id="modal-date" class="font-medium text-gray-900">March 11, 2025</p>
+            </div>
+            <div>
+              <p class="text-sm text-gray-500">Newsletter</p>
+              <p id="modal-newsletter" class="font-medium text-gray-900">Yes</p>
+            </div>
+          </div>
+          
+          <div class="mb-6">
+            <p class="text-sm text-gray-500 mb-2">Message</p>
+            <div id="modal-message" class="bg-gray-50 p-4 rounded-md text-gray-800">
+              Inquiry message will appear here.
+            </div>
+          </div>
+          
+          <div class="mb-6">
+            <p class="text-sm text-gray-500 mb-2">Current Status</p>
+            <div id="modal-status" class="inline-block px-3 py-1 rounded-full text-sm font-medium pending">
+              Pending
+            </div>
+          </div>
+          
+          <div id="modal-actions" class="flex justify-end space-x-3">
+            <button id="modal-reject" class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-md transition-all duration-300">
+              Reject Inquiry
+            </button>
+            <button id="modal-accept" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-md transition-all duration-300">
+              Accept Inquiry
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+    // DOM elements
+    const tableBody = document.getElementById('inquiries-table-body');
+    const refreshBtn = document.getElementById('refresh-btn');
+    const statusFilter = document.getElementById('status-filter');
+    const inquiryModal = document.getElementById('inquiry-modal');
+    const closeModal = document.getElementById('close-modal');
+    const modalAccept = document.getElementById('modal-accept');
+    const modalReject = document.getElementById('modal-reject');
+
+    // Counter elements
+    const totalCount = document.getElementById('total-count');
+    const pendingCount = document.getElementById('pending-count');
+    const acceptedCount = document.getElementById('accepted-count');
+    const rejectedCount = document.getElementById('rejected-count');
+
+    // Current selected inquiry ID
+    let currentInquiryId = null;
+
+    // Service name mapping
+    const serviceNames = {
+        'wellness': 'Wellness Retreats',
+        'events': 'Event Planning',
+        'transportation': 'Luxury Transportation',
+        'culinary': 'Culinary Experiences',
+        'adventure': 'Adventure Tours',
+        'concierge': 'Concierge Services',
+        'custom': 'Custom Services'
+    };
+
+    // Fetch inquiries from the database
+    function loadInquiries() {
+        fetch('get_inquiries.php')
+            .then(response => response.json())
+            .then(data => {
+                displayInquiries(data);
+                updateStatistics(data);
+            })
+            .catch(error => console.error('Error fetching inquiries:', error));
+    }
+
+    // Format date
+    function formatDate(dateString) {
+        const date = new Date(dateString);
+        return date.toLocaleDateString('en-US', {
+            year: 'numeric',
+            month: 'short',
+            day: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit'
+        });
+    }
+
+    // Display inquiries in the table
+    function displayInquiries(inquiries) {
+        const filter = statusFilter.value;
+        const filteredInquiries = filter === 'all' ? inquiries : inquiries.filter(inquiry => inquiry.status === filter);
+
+        tableBody.innerHTML = '';
+
+        if (filteredInquiries.length === 0) {
+            tableBody.innerHTML = `
+                <tr>
+                    <td colspan="6" class="px-6 py-4 text-center text-gray-500">
+                        No inquiries found matching the current filter.
+                    </td>
+                </tr>
+            `;
+            return;
+        }
+
+        filteredInquiries.forEach(inquiry => {
+            let statusClass = 'pending';
+            if (inquiry.status === 'accepted') statusClass = 'accepted';
+            if (inquiry.status === 'rejected') statusClass = 'rejected';
+
+            const serviceName = serviceNames[inquiry.service] || inquiry.service;
+
+            const tr = document.createElement('tr');
+            tr.className = 'hover:bg-gray-50';
+
+            tr.innerHTML = `
+                <td class="px-6 py-4 whitespace-nowrap">
+                    <div class="text-sm text-gray-900">${formatDate(inquiry.created_at)}</div>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                    <div class="text-sm font-medium text-gray-900">${inquiry.first_name} ${inquiry.last_name}</div>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                    <div class="text-sm text-gray-900">${serviceName}</div>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${statusClass}">
+                        ${inquiry.status.charAt(0).toUpperCase() + inquiry.status.slice(1)}
+                    </span>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                    <div class="text-sm text-gray-900">${inquiry.email}</div>
+                    <div class="text-sm text-gray-500">${inquiry.phone}</div>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                    <button class="view-btn text-green-600 hover:text-green-900 mr-3" data-id="${inquiry.id}">View</button>
+                </td>
+            `;
+
+            tableBody.appendChild(tr);
+        });
+
+        document.querySelectorAll('.view-btn').forEach(btn => {
+            btn.addEventListener('click', function () {
+                const id = parseInt(this.getAttribute('data-id'));
+                openInquiryModal(id, inquiries);
+            });
+        });
+    }
+
+    // Update statistics counters
+    function updateStatistics(inquiries) {
+        totalCount.textContent = inquiries.length;
+        pendingCount.textContent = inquiries.filter(i => i.status === 'pending').length;
+        acceptedCount.textContent = inquiries.filter(i => i.status === 'accepted').length;
+        rejectedCount.textContent = inquiries.filter(i => i.status === 'rejected').length;
+    }
+
+    // Open inquiry detail modal
+    function openInquiryModal(id, inquiries) {
+        const inquiry = inquiries.find(i => i.id === id);
+        if (!inquiry) return;
+
+        currentInquiryId = id;
+
+        document.getElementById('modal-title').textContent = `Inquiry #${id}`;
+        document.getElementById('modal-name').textContent = `${inquiry.first_name} ${inquiry.last_name}`;
+        document.getElementById('modal-service').textContent = serviceNames[inquiry.service] || inquiry.service;
+        document.getElementById('modal-email').textContent = inquiry.email;
+        document.getElementById('modal-phone').textContent = inquiry.phone;
+        document.getElementById('modal-date').textContent = formatDate(inquiry.created_at);
+        document.getElementById('modal-message').textContent = inquiry.message;
+        document.getElementById('modal-newsletter').textContent = inquiry.newsletter ? 'Yes' : 'No';
+
+        const modalStatus = document.getElementById('modal-status');
+        modalStatus.className = `inline-block px-3 py-1 rounded-full text-sm font-medium ${inquiry.status}`;
+        modalStatus.textContent = inquiry.status.charAt(0).toUpperCase() + inquiry.status.slice(1);
+
+        if (inquiry.status === 'pending') {
+            modalAccept.style.display = 'block';
+            modalReject.style.display = 'block';
+        } else {
+            modalAccept.style.display = 'none';
+            modalReject.style.display = 'none';
+        }
+
+        inquiryModal.classList.remove('hidden');
+    }
+
+    // Close modal
+    function closeInquiryModal() {
+        inquiryModal.classList.add('hidden');
+        currentInquiryId = null;
+    }
+
+    // Update inquiry status in database
+    function updateInquiryStatus(newStatus) {
+        if (!currentInquiryId) return;
+
+        fetch('update_inquiry.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ id: currentInquiryId, status: newStatus })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                loadInquiries();
+                closeInquiryModal();
+            } else {
+                alert('Error updating inquiry status.');
+            }
+        })
+        .catch(error => console.error('Error updating status:', error));
+    }
+
+    // Event listeners
+    refreshBtn.addEventListener('click', loadInquiries);
+    statusFilter.addEventListener('change', loadInquiries);
+    closeModal.addEventListener('click', closeInquiryModal);
+    inquiryModal.addEventListener('click', function (e) {
+        if (e.target === inquiryModal) closeInquiryModal();
+    });
+
+    modalAccept.addEventListener('click', function () { updateInquiryStatus('accepted'); });
+    modalReject.addEventListener('click', function () { updateInquiryStatus('rejected'); });
+
+    // Initial load
+    loadInquiries();
+});
+
+  </script>
+</body>
+</html>
