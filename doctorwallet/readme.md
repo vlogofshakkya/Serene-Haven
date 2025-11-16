@@ -1,0 +1,1 @@
+This is the Doctor wallet website this full project contains 3 separately working websites 1: doctor portal, 2: patient portal & 3: laboratory portal. these 3 website can access separately by the main website of this thedoctorwallet website.
