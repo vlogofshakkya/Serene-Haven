@@ -1,0 +1,1549 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Serene Haven Guesthouse</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="icon" type="image/png" href="logo/logo2.png">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;600&display=swap');
+
+        :root {
+            --primary-color: #1a365d;
+            --secondary-color: #4299e1;
+            --accent-color: #ed8936;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Playfair Display', serif;
+        }
+
+        /* Mobile Menu Styles */
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 80%;
+            max-width: 300px;
+            height: 100vh;
+            background: white;
+            transition: right 0.3s ease-in-out;
+            z-index: 1000;
+            box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .mobile-menu.active {
+            right: 0;
+        }
+
+        .menu-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease-in-out;
+            z-index: 999;
+        }
+
+        .menu-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Existing styles remain the same */
+        .fade-in-up {
+            opacity: 0;
+            animation: fadeInUp 1s ease-out forwards;
+        }
+
+        .fade-in {
+            opacity: 0;
+            animation: fadeIn 1s ease-out forwards;
+        }
+
+        .slide-in {
+            opacity: 0;
+            animation: slideInRight 0.8s ease-out forwards;
+        }
+
+        .hover-scale {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .hover-scale:hover {
+            transform: scale(1.05);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
+                        0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
+        .room-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+
+        .room-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+
+        .amenity-icon {
+            transition: all 0.3s ease;
+        }
+
+        .amenity-icon:hover {
+            transform: rotateY(180deg);
+            color: var(--accent-color);
+        }
+
+        /* Custom Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInRight {
+            from {
+                transform: translateX(50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Parallax Effect */
+        .parallax {
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--secondary-color);
+            border-radius: 5px;
+        }
+
+        /* Loading Animation */
+       /* .loader {
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid var(--primary-color);
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 9999;
+        }
+/* From Uiverse.io by Ricardo03185997 */ 
+/* Container for centering the loader */
+.loader-container {
+  position: fixed; /* Fixes the loader in place */
+  top: 50%; /* Centers vertically */
+  left: 50%; /* Centers horizontally */
+  transform: translate(-50%, -50%); /* Adjusts the position to exactly center */
+  z-index: 9999; /* Ensures the loader appears above other elements */
+}
+
+/* Upscaled loader */
+.loader {
+  --path: #2f3545;
+  --dot: #fb992b;
+  --duration: 3s;
+  width: 88px; /* Increased size of the loader */
+  height: 88px; /* Increased size of the loader */
+  position: relative;
+  display: inline-block;
+  margin: 0 16px;
+}
+
+.loader:before {
+  content: "";
+  width: 12px; /* Adjusted size for dot */
+  height: 12px; /* Adjusted size for dot */
+  border-radius: 50%;
+  position: absolute;
+  display: block;
+  background: var(--dot);
+  top: 75px; /* Adjusted for the new size */
+  left: 39px; /* Adjusted for the new size */
+  transform: translate(-36px, -36px); /* Adjusted for the new size */
+  animation: dotRect var(--duration) cubic-bezier(0.785, 0.135, 0.15, 0.86) infinite;
+}
+
+.loader svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.loader svg rect,
+.loader svg polygon,
+.loader svg circle {
+  fill: none;
+  stroke: var(--path);
+  stroke-width: 10px; /* Kept the original stroke width for the rectangle */
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+
+.loader svg polygon {
+  stroke-dasharray: 145 76 145 76; /* Keep the rectangle stroke size unchanged */
+  stroke-dashoffset: 0;
+  animation: pathTriangle var(--duration) cubic-bezier(0.785, 0.135, 0.15, 0.86) infinite;
+}
+
+.loader svg rect {
+  stroke-dasharray: 192 64 192 64; /* Keep the rectangle stroke size unchanged */
+  stroke-dashoffset: 0;
+  animation: pathRect 3s cubic-bezier(0.785, 0.135, 0.15, 0.86) infinite;
+}
+
+.loader svg circle {
+  stroke-dasharray: 150 50 150 50; /* Adjusted for the new size */
+  stroke-dashoffset: 75;
+  animation: pathCircle var(--duration) cubic-bezier(0.785, 0.135, 0.15, 0.86) infinite;
+}
+
+.loader.triangle {
+  width: 96px; /* Increased size for the triangle loader */
+}
+
+.loader.triangle:before {
+  left: 42px; /* Adjusted for the new size */
+  transform: translate(-20px, -36px); /* Adjusted for the new size */
+  animation: dotTriangle var(--duration) cubic-bezier(0.785, 0.135, 0.15, 0.86) infinite;
+}
+
+@keyframes pathTriangle {
+  33% {
+    stroke-dashoffset: 74;
+  }
+
+  66% {
+    stroke-dashoffset: 147;
+  }
+
+  100% {
+    stroke-dashoffset: 221;
+  }
+}
+
+@keyframes dotTriangle {
+  33% {
+    transform: translate(0, 0);
+  }
+
+  66% {
+    transform: translate(10px, -18px);
+  }
+
+  100% {
+    transform: translate(-10px, -18px);
+  }
+}
+
+@keyframes pathRect {
+  25% {
+    stroke-dashoffset: 64;
+  }
+
+  50% {
+    stroke-dashoffset: 128;
+  }
+
+  75% {
+    stroke-dashoffset: 192;
+  }
+
+  100% {
+    stroke-dashoffset: 256;
+  }
+}
+
+@keyframes dotRect {
+  25% {
+    transform: translate(0, 0);
+  }
+
+  50% {
+    transform: translate(18px, -18px);
+  }
+
+  75% {
+    transform: translate(0, -36px);
+  }
+
+  100% {
+    transform: translate(-18px, -18px);
+  }
+}
+
+@keyframes pathCircle {
+  25% {
+    stroke-dashoffset: 125;
+  }
+
+  50% {
+    stroke-dashoffset: 175;
+  }
+
+  75% {
+    stroke-dashoffset: 225;
+  }
+
+  100% {
+    stroke-dashoffset: 275;
+  }
+}
+
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Smooth Scroll Behavior */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Mobile Menu */
+        .mobile-menu {
+            transform: translateX(-100%);
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .mobile-menu.active {
+            transform: translateX(0);
+        }
+
+        /* Image Gallery */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            padding: 1rem;
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 0.5rem;
+        }
+
+        .gallery-item img {
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        /* Review Cards */
+        .review-card {
+            background: white;
+            border-radius: 1rem;
+            padding: 2rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .review-card:hover {
+            transform: translateY(-5px);
+        }
+
+        /* Booking Form Styles */
+        .form-input {
+            transition: border-color 0.3s ease;
+        }
+
+        .form-input:focus {
+            border-color: var(--secondary-color);
+            box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.5);
+        }
+
+        /* Toast Notification */
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            padding: 1rem 2rem;
+            background: white;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            transform: translateY(100%);
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+
+        .toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        /* Weather Widget */
+        .weather-widget {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 1rem;
+            padding: 1rem;
+            backdrop-filter: blur(10px);
+        }
+
+        /* Availability Calendar */
+        .calendar {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 0.5rem;
+        }
+
+        .calendar-day {
+            aspect-ratio: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 0.25rem;
+            transition: all 0.3s ease;
+        }
+
+        .calendar-day:hover {
+            background: var(--secondary-color);
+            color: white;
+        }
+        .hero-logo {
+            max-width: 400px;
+            width: 100%;
+            height: auto;
+            margin: 0 auto 2rem;
+            backdrop-filter: blur(5px);
+            padding: 1rem;
+            border-radius: 0.5rem;
+        }
+
+/* Base styles for glass morphism */
+.glass {
+  background: rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+}
+
+/* Hover effects */
+.hover-grow {
+  transition: transform 0.3s ease;
+}
+
+.hover-grow:hover {
+  transform: scale(1.05);
+}
+
+.hover-glow {
+  transition: box-shadow 0.3s ease;
+}
+
+.hover-glow:hover {
+  box-shadow: 0 0 15px rgba(81, 203, 238, 1);
+}
+
+.hover-color-shift {
+  transition: background-color 0.5s ease, color 0.5s ease;
+}
+
+.hover-color-shift:hover {
+  background-color: #6a5acd;
+  color: white;
+}
+
+/* Scroll animations */
+.fade-in {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.slide-in-left {
+  opacity: 0;
+  transform: translateX(-50px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.slide-in-left.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.slide-in-right {
+  opacity: 0;
+  transform: translateX(50px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.slide-in-right.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Color pulsing effect */
+.pulse {
+  animation: pulse-color 3s infinite;
+}
+
+@keyframes pulse-color {
+  0% {
+    box-shadow: 0 0 0 0 rgba(204, 169, 221, 0.4);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(204, 169, 221, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(204, 169, 221, 0);
+  }
+}
+
+/* Background color gradient animation */
+.gradient-bg {
+  background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+  background-size: 400% 400%;
+  animation: gradient 15s ease infinite;
+}
+
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+    </style>
+</head>
+<body>
+    <!-- Loading Animation -->
+    <div class="loader-container" id="loader">
+<!-- From Uiverse.io by Ricardo03185997 --> 
+<div class="loader">
+    <svg viewBox="0 0 80 80">
+      <rect x="8" y="8" width="64" height="64"></rect>
+      <text
+        x="50%"
+        y="60%"
+        text-anchor="middle"
+        fill="black"
+        font-size="24"
+        font-weight="bold"
+      >
+        S
+      </text>
+    </svg>
+  </div>
+  
+  <div class="loader">
+    <svg viewBox="0 0 80 80">
+      <rect x="8" y="8" width="64" height="64"></rect>
+      <text
+        x="50%"
+        y="60%"
+        text-anchor="middle"
+        fill="black"
+        font-size="24"
+        font-weight="bold"
+      >
+        E
+      </text>
+    </svg>
+  </div>
+  
+  <div class="loader">
+    <svg viewBox="0 0 80 80">
+      <rect x="8" y="8" width="64" height="64"></rect>
+      <text
+        x="50%"
+        y="60%"
+        text-anchor="middle"
+        fill="black"
+        font-size="24"
+        font-weight="bold"
+      >
+        R
+      </text>
+    </svg>
+  </div>
+  
+  <div class="loader">
+    <svg viewBox="0 0 80 80">
+      <rect x="8" y="8" width="64" height="64"></rect>
+      <text
+        x="50%"
+        y="60%"
+        text-anchor="middle"
+        fill="black"
+        font-size="24"
+        font-weight="bold"
+      >
+        E
+      </text>
+    </svg>
+  </div>
+  <div class="loader">
+    <svg viewBox="0 0 80 80">
+      <rect x="8" y="8" width="64" height="64"></rect>
+      <text
+        x="50%"
+        y="60%"
+        text-anchor="middle"
+        fill="black"
+        font-size="24"
+        font-weight="bold"
+      >
+        N
+      </text>
+    </svg>
+  </div>
+  <div class="loader">
+    <svg viewBox="0 0 80 80">
+      <rect x="8" y="8" width="64" height="64"></rect>
+      <text
+        x="50%"
+        y="60%"
+        text-anchor="middle"
+        fill="black"
+        font-size="24"
+        font-weight="bold"
+      >
+        E
+      </text>
+    </svg>
+  </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg fixed w-full z-10 animate__animated animate__fadeInDown">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="flex justify-between">
+                <div class="flex space-x-7">
+                <div class="flex items-center py-4 slide-in-left">
+                    <a href="#home" class="flex items-center font-semibold text-gray-700 text-lg">
+                        <img 
+                            src="logo/logo2.png" 
+                            alt="Serene Haven Logo" 
+                            class="h-12 w-15 mr-3"
+                        /> 
+                        Serene Haven
+                    </a>
+                </div>
+                </div>
+                <div class="hidden md:flex items-center space-x-3 slide-in-right">
+                    <!--<a href="#home" class="py-2 px-3 text-gray-700 hover:text-gray-900">Home</a>-->
+                    <a href="#rooms" class="py-2 px-3 text-gray-700 hover:text-gray-900">Rooms</a>
+                    <!--<a href="#amenities" class="py-2 px-3 text-gray-700 hover:text-gray-900">Amenities</a>-->
+                    <a href="#gallery" class="py-2 px-3 text-gray-700 hover:text-gray-900">Gallery</a>
+                    <a href="#location" class="py-2 px-3 text-gray-700 hover:text-gray-900">Locations & Services</a>
+                    <a href="#contact" class="py-2 px-3 text-gray-700 hover:text-gray-900">Contact</a>
+                    <a href="#book" class="py-2 px-3 bg-blue-600 text-white rounded hover:bg-blue-700 pulse">
+                        Book Now
+                    </a>
+                    <a href="login.html" class="py-2 px-3 bg-blue-600 text-white rounded hover:bg-blue-700">
+                        login
+                    </a>
+                </div>
+                <div class="md:hidden flex items-center">
+                    <button class="mobile-menu-button">
+                        <i class="fas fa-bars text-gray-700 text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu fixed top-0 left-0 h-full w-64 bg-white shadow-lg z-20 p-4">
+        <div class="flex justify-end">
+            <button class="mobile-close">
+                <i class="fas fa-times text-gray-700 text-2xl"></i>
+            </button>
+        </div>
+        <div class="flex flex-col space-y-4 mt-8">
+            <a href="#home" class="py-2 px-3 text-gray-700 hover:text-gray-900">Home</a>
+            <a href="#rooms" class="py-2 px-3 text-gray-700 hover:text-gray-900">Rooms</a>
+            <a href="#amenities" class="py-2 px-3 text-gray-700 hover:text-gray-900">Amenities</a>
+            <a href="#gallery" class="py-2 px-3 text-gray-700 hover:text-gray-900">Gallery</a>
+            <a href="#location" class="py-2 px-3 text-gray-700 hover:text-gray-900">Locations & Services</a>
+            <a href="#contact" class="py-2 px-3 text-gray-700 hover:text-gray-900">Contact</a>
+            <a href="login.html" class="py-2 px-3 bg-blue-600 text-white rounded hover:bg-blue-700">
+                login
+            </a>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+<header id="home" class="relative pt-16">
+    <div class="h-screen bg-gray-200 flex items-center justify-center parallax relative overflow-hidden">
+        <!-- Background Video -->
+        <video 
+            src="img/covervideo.mp4" 
+            autoplay 
+            loop 
+            muted 
+            playsinline 
+            class="absolute top-0 left-0 w-full h-full object-cover z-0"
+        >
+            Your browser does not support the video tag.
+        </video>
+        
+        <!-- Overlay to ensure text readability -->
+        <div class="absolute inset-0 bg-black bg-opacity-40 z-10"></div>
+        
+        <!-- Hero Content -->
+        <div class="relative z-20 text-center animate__animated animate__fadeInUp">
+            <div class="mb-8 fade-in">
+                <img 
+                    src="logo/logo2.png" 
+                    alt="Serene Haven Logo" 
+                    class="hero-logo"
+                >
+            </div>
+            <h1 class="text-5xl md:text-6xl font-bold text-white mb-6 fade-in">Welcome to Serene Haven</h1>
+            <p class="text-xl md:text-2xl text-white mb-8 fade-in">Your luxurious escape awaits</p>
+            <a href="#book" class="bg-blue-600 text-white px-8 py-3 rounded-lg hover:bg-blue-700 hover-scale inline-block pulse fade-in">
+                Book Your Stay
+            </a>
+        </div>
+    </div>
+</header>
+
+    <main>
+        <!-- Rooms Section -->
+        <section id="rooms" class="py-20 bg-gray-50">
+            <div class="max-w-6xl mx-auto px-4">
+                <h2 class="text-4xl font-bold text-center mb-12 fade-in">Our Rooms</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="room-card fade-in pulse slide-in-left" style="animation-delay: 0.2s">
+                        <img src="img/deluxe.jpg" alt="Deluxe Room" class="w-full h-48 object-cover"/>
+                        <div class="p-6 bg-white">
+                            <h3 class="text-xl font-semibold mb-2">Deluxe Room</h3>
+                            <p class="text-gray-600 mb-4">Spacious room with modern amenities and garden view</p>
+                            <p class="text-blue-600 font-semibold mb-4">From $120/night</p>
+                            <a href="#book"><button class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700">
+                                Book Now
+                            </button></a>
+                        </div>
+                    </div>
+                    <div class="room-card pulse fade-in" style="animation-delay: 0.2s">
+                        <img src="img/suite.jpg" alt="Deluxe Room" class="w-full h-48 object-cover"/>
+                        <div class="p-6 bg-white">
+                            <h3 class="text-xl font-semibold mb-2">Suite Room</h3>
+                            <p class="text-gray-600 mb-4">Luxury suite with separate living area and balcony</p>
+                            <p class="text-blue-600 font-semibold mb-4">From $120/night</p>
+                            <a href="#book"><button class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700">
+                                Book Now
+                            </button></a>
+                        </div>
+                    </div>
+                    <div class="room-card fade-in pulse slide-in-right" style="animation-delay: 0.2s">
+                        <img src="img/family.jpg" alt="Deluxe Room" class="w-full h-48 object-cover"/>
+                        <div class="p-6 bg-white">
+                            <h3 class="text-xl font-semibold mb-2">Family Room</h3>
+                            <p class="text-gray-600 mb-4">Perfect for families, with connecting rooms</p>
+                            <p class="text-blue-600 font-semibold mb-4">From $120/night</p>
+                            <a href="#book"><button class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700">
+                                Book Now
+                            </button></a>
+                        </div>
+                    </div>
+                    <!-- Add more room cards here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Amenities Section -->
+        <section id="amenities" class="py-20">
+            <div class="max-w-6xl mx-auto px-4 slide-in-left">
+                <h2 class="text-4xl font-bold text-center mb-12 fade-in">Amenities</h2>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+                    <div class="text-center slide-in-left" style="animation-delay: 0.2s">
+                        <div class="w-16 h-16 mx-auto mb-4 bg-blue-100 rounded-full flex items-center justify-center pulse">
+                            <i class="fas fa-wifi text-2xl text-blue-600 amenity-icon"></i>
+                        </div>
+                        <h3 class="font-semibold">Free WiFi</h3>
+                    </div>
+                    <div class="text-center slide-in-left" style="animation-delay: 0.2s">
+                        <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4 pulse">
+                        <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                    </div>
+                    <h3 class="font-semibold">24/7 Service</h3>
+                    </div>
+                    <div class="text-center slide-in-right" style="animation-delay: 0.2s">
+                        <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4 pulse">
+                        <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"/>
+                        </svg>
+                    </div>
+                    <h3 class="font-semibold">Parking</h3>
+                    </div>
+                    <div class="text-center slide-in-right" style="animation-delay: 0.2s">
+                        <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4 pulse">
+                        <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+                        </svg>
+                    </div>
+                    <h3 class="font-semibold">Breakfast</h3>
+                    </div>
+                    <!-- Add more amenity items here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Gallery Section -->
+        <section id="gallery" class="py-20 bg-gray-50">
+            <div class="max-w-6xl mx-auto px-4 slide-in-right">
+                <h2 class="text-4xl font-bold text-center mb-12 fade-in">Gallery</h2>
+                <div class="gallery-grid">
+                    <div class="gallery-item  cursor-pointer slide-in-left" onclick="openModal(this)">
+                        <img src="img/g1.jpg" alt="Gallery 1" class="w-full h-full object-cover"/>
+                    </div>
+                    <div class="gallery-item  cursor-pointer slide-in-left" onclick="openModal(this)">
+                        <img src="img/g2.jpg" alt="Gallery 2" class="w-full h-full object-cover"/>
+                    </div>
+                    <div class="gallery-item  cursor-pointer slide-in-right" onclick="openModal(this)">
+                        <img src="img/deluxe.jpg" alt="Gallery 3" class="w-full h-full object-cover"/>
+                    </div>
+                    <div class="gallery-item  cursor-pointer slide-in-right" onclick="openModal(this)">
+                        <img src="img/g3.jpg" alt="Gallery 1" class="w-full h-full object-cover"/>
+                    </div>
+                    <div class="gallery-item  cursor-pointer slide-in-left" onclick="openModal(this)">
+                        <img src="img/family.jpg" alt="Gallery 2" class="w-full h-full object-cover"/>
+                    </div>
+                    <div class="gallery-item  cursor-pointer slide-in-left" onclick="openModal(this)">
+                        <img src="img/g4.jpg" alt="Gallery 3" class="w-full h-full object-cover"/>
+                    </div>
+                    <div class="gallery-item  cursor-pointer slide-in-right" onclick="openModal(this)">
+                        <img src="img/suite.jpg" alt="Gallery 1" class="w-full h-full object-cover"/>
+                    </div>
+                    <div class="gallery-item  cursor-pointer slide-in-right" onclick="openModal(this)">
+                        <img src="img/g5.jpg" alt="Gallery 2" class="w-full h-full object-cover"/>
+                    </div>
+                    <div class="gallery-item  cursor-pointer slide-in-left" onclick="openModal(this)">
+                        <img src="img/g6.jpg" alt="Gallery 3" class="w-full h-full object-cover"/>
+                    </div>
+                    <div class="gallery-item  cursor-pointer slide-in-left" onclick="openModal(this)">
+                        <img src="img/g7.jpg" alt="Gallery 1" class="w-full h-full object-cover"/>
+                    </div>
+                    <!-- Add more gallery items as needed -->
+                </div>
+            </div>
+        </section>
+
+        <div id="galleryModal" class="fixed inset-0 bg-black bg-opacity-75 z-50 hidden flex items-center justify-center">
+            <div class="relative max-w-4xl w-full mx-4">
+                <button onclick="closeModal()" class="absolute -top-10 right-0 text-white hover:text-gray-300 focus:outline-none">
+                    <i class="fas fa-times text-3xl"></i>
+                </button>
+                <img id="modalImage" src="" alt="Modal Image" class="w-full h-auto rounded-lg shadow-lg">
+            </div>
+        </div>
+	<!-- Location Features Section -->
+<section id="location" class="py-20">
+    <div class="max-w-6xl mx-auto px-4 slide-in-left">
+        <h2 class="text-4xl font-bold text-center mb-12 fade-in">Location & Services</h2>
+        
+        <!-- Viewpoints & Distance -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
+            <div class="slide-in-left">
+                <h3 class="text-2xl font-semibold mb-6">Nearby Attractions</h3>
+                <div class="bg-white p-6 rounded-lg shadow-lg">
+                    <ul class="space-y-4">
+                        <li class="flex items-center slide-in-left">
+                            <i class="fas fa-mountain text-blue-600 mr-3"></i>
+                            <span>Hanthana Mountain Range - 5km</span>
+                        </li>
+                        <li class="flex items-center slide-in-left">
+                            <i class="fas fa-landmark text-blue-600 mr-3"></i>
+                            <span>Temple of the Sacred Tooth Relic - 3km</span>
+                        </li>
+                        <li class="flex items-center slide-in-left">
+                            <i class="fas fa-tree text-blue-600 mr-3"></i>
+                            <span>Royal Botanical Gardens - 6km</span>
+                        </li>
+                        <li class="flex items-center slide-in-left">
+                            <i class="fas fa-building text-blue-600 mr-3"></i>
+                            <span>Kandy City Center - 3.5km</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="slide-in-right">
+                <h3 class="text-2xl font-semibold mb-6">View Points Gallery</h3>
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="gallery-item cursor-pointer pulse slide-in-left" onclick="openModal(this)">
+                        <img src="img/temple.jpg" alt="Viewpoint 1" class="w-full h-48 object-cover rounded-lg"/>
+                    </div>
+                    <div class="gallery-item cursor-pointer pulse slide-in-right" onclick="openModal(this)">
+                        <img src="img/queens.jpg" alt="Viewpoint 2" class="w-full h-48 object-cover rounded-lg"/>
+                    </div>
+                    <div class="gallery-item cursor-pointer pulse slide-in-left" onclick="openModal(this)">
+                        <img src="img/hanthana.jpg" alt="Viewpoint 3" class="w-full h-48 object-cover rounded-lg"/>
+                    </div>
+                    <div class="gallery-item cursor-pointer pulse slide-in-right" onclick="openModal(this)">
+                        <img src="img/graden.jpg" alt="Viewpoint 4" class="w-full h-48 object-cover rounded-lg"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Additional Services -->
+        <h3 class="text-2xl font-semibold text-center mb-8 fade-in">Additional Services</h3>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="bg-white p-6 rounded-lg shadow-lg pulse slide-in-left">
+                <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mb-4">
+                    <i class="fas fa-utensils text-blue-600"></i>
+                </div>
+                <h4 class="text-xl font-semibold mb-2">Restaurant Service</h4>
+                <p class="text-gray-600">Traditional Sri Lankan cuisine and international dishes available 24/7</p>
+            </div>
+            
+            <div class="bg-white p-6 rounded-lg shadow-lg fade-in pulse">
+                <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mb-4">
+                    <i class="fas fa-car text-blue-600"></i>
+                </div>
+                <h4 class="text-xl font-semibold mb-2">Transport Service</h4>
+                <p class="text-gray-600">Airport transfers and local tour arrangements available</p>
+            </div>
+            
+            <div class="bg-white p-6 rounded-lg shadow-lg pulse slide-in-right">
+                <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mb-4">
+                    <i class="fas fa-concierge-bell text-blue-600"></i>
+                </div>
+                <h4 class="text-xl font-semibold mb-2">Concierge Service</h4>
+                <p class="text-gray-600">24/7 assistance with tour bookings and local recommendations</p>
+            </div>
+        </div>
+    </div>
+</section>
+        <!-- Booking Section -->
+        <section id="book" class="py-20 bg-gray-50">
+            <div class="max-w-6xl mx-auto px-4 slide-in-right">
+                <h2 class="text-4xl font-bold text-center mb-12 fade-in">Book Your Stay</h2>
+                <div class="bg-white p-8 rounded-lg shadow-lg fade-in">
+                    <form id="bookingForm" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="slide-in-left">
+                            <label class="block text-gray-700 mb-2">Check-in Date</label>
+                            <input type="date" name="checkIn" class="form-input w-full px-4 py-2 border rounded-lg focus:outline-none" required>
+                        </div>
+                        <div class="slide-in-right">
+                            <label class="block text-gray-700 mb-2">Check-out Date</label>
+                            <input type="date" name="checkOut" class="form-input w-full px-4 py-2 border rounded-lg focus:outline-none" required>
+                        </div>
+                        <div class="slide-in-left">
+                            <label class="block text-gray-700 mb-2">Guests</label>
+                            <select name="guests" class="form-input w-full px-4 py-2 border rounded-lg focus:outline-none">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                            </select>
+                        </div>
+                        <div class="slide-in-right">
+                            <label class="block text-gray-700 mb-2">Room Type</label>
+                            <select name="roomType" class="form-input w-full px-4 py-2 border rounded-lg focus:outline-none">
+                                <option value="deluxe">Deluxe Room</option>
+                                <option value="suite">Suite</option>
+                                <option value="family">Family Room</option>
+                            </select>
+                        </div>
+                        <div class="md:col-span-2 fade-in">
+                            <button type="button" id="checkAvailabilityBtn" class="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 pulse">
+                                Check Availability
+                            </button>                            
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div id="availabilityResult" class="hidden mt-4 p-2 rounded-lg"></div>
+
+        </section>
+<!-- Guest Reviews Section -->
+<section id="guest-reviews" class="py-20">
+    <div class="max-w-6xl mx-auto px-4 slide-in-left">
+        <h2 class="text-4xl font-bold text-center mb-12 fade-in">Guest Reviews</h2>
+        <!-- Display Reviews -->
+        <div id="reviewsContainer" class="mt-8 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-4 gap-4 fade-in">
+            <!-- Reviews will be dynamically added here -->
+        </div>
+        <div class="text-center mt-6">
+            <button id="showMoreReviews" class="bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 hidden fade-in pulse">Show More Reviews</button>
+        </div>
+        <!-- Review Form -->
+        <div class="bg-white p-8 rounded-lg shadow-lg fade-in">
+            <h3 class="text-xl font-semibold mb-4 fade-in">Leave a Review</h3>
+            <form id="reviewForm" class="space-y-4">
+                <div class="slide-in-left">
+                    <label class="block text-gray-700 mb-2">Your Name</label>
+                    <input type="text" id="name" class="form-input w-full px-4 py-2 border rounded-lg focus:outline-none" required>
+                </div>
+                <div class="slide-in-left">
+                    <label class="block text-gray-700 mb-2">Your Review</label>
+                    <textarea id="review" class="form-input w-full px-4 py-2 border rounded-lg focus:outline-none h-32" required></textarea>
+                </div>
+                <div class="slide-in-left">
+                    <label class="block text-gray-700 mb-2">Rating</label>
+                    <select id="rating" class="form-input w-full px-4 py-2 border rounded-lg focus:outline-none">
+                        <option value="5">★★★★★</option>
+                        <option value="4">★★★★☆</option>
+                        <option value="3">★★★☆☆</option>
+                        <option value="2">★★☆☆☆</option>
+                        <option value="1">★☆☆☆☆</option>
+                    </select>
+                </div>
+                <div class="slide-in-left">
+                    <label class="block text-gray-700 mb-2">Set a Password (for deleting your review)</label>
+                    <input type="password" id="password" class="form-input w-full px-4 py-2 border rounded-lg focus:outline-none" required>
+                </div>
+                <button type="submit" class="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 pulse fade-in">Submit Review</button>
+            </form>
+        </div>
+    
+    </div>
+</section>
+<!--Contact Secion-->
+<section id="contact" class="py-20 bg-gray-50">
+    <div class="max-w-6xl mx-auto px-4 slide-in-right">
+        <h2 class="text-4xl font-bold text-center mb-12 fade-in">Contact Us</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <!-- Contact Form 
+            <div class="fade-in-up md:col-span-1">
+                <form class="space-y-4">
+                    <div>
+                        <label class="block text-gray-700 mb-2">Name</label>
+                        <input type="text" class="form-input w-full px-4 py-2 border rounded-lg focus:outline-none" required>
+                    </div>
+                    <div>
+                        <label class="block text-gray-700 mb-2">Email</label>
+                        <input type="email" class="form-input w-full px-4 py-2 border rounded-lg focus:outline-none" required>
+                    </div>
+                    <div>
+                        <label class="block text-gray-700 mb-2">Message</label>
+                        <textarea class="form-input w-full px-4 py-2 border rounded-lg focus:outline-none h-32" required></textarea>
+                    </div>
+                    <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700">
+                        Send Message
+                    </button>
+                </form>
+            </div>-->
+            <!-- Map -->
+            <div class="slide-in-left md:col-span-1">
+                <iframe 
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3957.8000118115974!2d80.61740237564044!3d7.263586714119498!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ae369004afc59b1%3A0xeb48f269aef26088!2sDr.Nimal%20432%2F32!5e0!3m2!1sen!2slk!4v1737563554509!5m2!1sen!2slk" 
+                    class="w-full h-full min-h-[300px] rounded-lg shadow-lg pulse"
+                    style="border:0;" 
+                    allowfullscreen="" 
+                    loading="lazy" 
+                    referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
+            </div>
+            <!-- Contact Info -->
+            <div class="slide-in-right md:col-span-1">
+                <div class="bg-white p-6 rounded-lg shadow-lg">
+                    <div class="slide-in-right">
+                    <h3 class="text-xl font-semibold mb-4">Location</h3>
+                    <p class="text-gray-600 mb-4">10/432, Mount Pleasant Gardens<br>Heerassagala, Kandy</p>
+                    </div>
+                    <div class="slide-in-left">
+                    <h3 class="text-xl font-semibold mb-4">Contact Info</h3>
+                    <p class="text-gray-600 mb-2">
+                        <i class="fas fa-phone mr-2"></i>+94 75 337 4975
+                    </p>
+                    <p class="text-gray-600">
+                        <i class="fas fa-envelope mr-2"></i>theserenehavenkandy@gmail.com
+                    </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-12">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div class="slide-in-left">
+                <div class="mb-4 it">
+                    <img 
+                        src="logo/logo2.png" 
+                        alt="Serene Haven Logo" 
+                        class="h-24 w-auto"
+                    />
+                </div>
+                <p class="text-gray-400">Your perfect getaway destination</p>
+            </div>
+                <div class="slide-in-left">
+                    <h3 class="text-xl font-semibold mb-4">Quick Links</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#rooms" class="text-gray-400 hover:text-white">Rooms</a></li>
+                        <li><a href="#amenities" class="text-gray-400 hover:text-white">Amenities</a></li>
+                        <li><a href="#gallery" class="text-gray-400 hover:text-white">Gallery</a></li>
+                        <li><a href="#location" class="text-gray-400 hover:text-white">Locations & Services</a></li>
+                        <li><a href="#contact" class="text-gray-400 hover:text-white">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="slide-in-right">
+                    <h3 class="text-xl font-semibold mb-4">Connect</h3>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-facebook"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="slide-in-right">
+                    <h3 class="text-xl font-semibold mb-4">Newsletter</h3>
+                    <form class="space-y-4">
+                        <input type="email" placeholder="Your email" class="w-full px-4 py-2 rounded-lg bg-gray-700 text-white focus:outline-none">
+                        <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700">
+                            Subscribe
+                        </button>
+                    </form>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center fade-in">
+                <p class="text-gray-400">&copy; 2025 Serene Haven. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast">
+        <p class="text-gray-800">Message sent successfully!</p>
+    </div>
+
+    <script>
+        // Mobile menu functionality
+        const mobileMenuButton = document.querySelector('.mobile-menu-button');
+        const mobileMenu = document.querySelector('.mobile-menu');
+        const mobileClose = document.querySelector('.mobile-close');
+
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.add('active');
+        });
+
+        mobileClose.addEventListener('click', () => {
+            mobileMenu.classList.remove('active');
+        });
+
+        // Loading animation
+        //window.addEventListener('load', () => {
+            //const loader = document.getElementById('loader');
+            //loader.style.display = 'none';
+        //});
+        // Loading animation
+document.addEventListener('DOMContentLoaded', () => {
+    const loader = document.getElementById('loader');
+    
+    // Hide loader after a short delay to ensure content is loaded
+    setTimeout(() => {
+        loader.style.display = 'none';
+    }, 500);
+});
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in, .fade-in-up, .slide-in').forEach(el => {
+            observer.observe(el);
+        });
+        const modal = document.getElementById('galleryModal');
+        const modalImg = document.getElementById('modalImage');
+
+        function openModal(element) {
+            const imgSrc = element.querySelector('img').src;
+            modalImg.src = imgSrc;
+            modal.classList.remove('hidden');
+            // Prevent scrolling when modal is open
+            document.body.style.overflow = 'hidden';
+            
+            // Add animation classes
+            modal.classList.add('animate__animated', 'animate__fadeIn');
+            modalImg.classList.add('animate__animated', 'animate__zoomIn');
+        }
+
+        function closeModal() {
+            // Add closing animations
+            modal.classList.add('animate__fadeOut');
+            modalImg.classList.add('animate__zoomOut');
+            
+            // Wait for animations to complete before hiding
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                // Remove animation classes
+                modal.classList.remove('animate__fadeIn', 'animate__fadeOut');
+                modalImg.classList.remove('animate__zoomIn', 'animate__zoomOut');
+                // Restore scrolling
+                document.body.style.overflow = 'auto';
+            }, 500);
+        }
+
+        // Close modal when clicking outside the image
+        modal.addEventListener('click', function(e) {
+            if (e.target === modal) {
+                closeModal();
+            }
+        });
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
+                closeModal();
+            }
+        });
+    </script>
+<script>
+    document.getElementById('bookingForm').addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        const formData = new FormData(this);
+        const resultDiv = document.getElementById('availabilityResult');
+
+        fetch('check_availability.php', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            resultDiv.classList.remove('hidden');
+            resultDiv.textContent = data.message;
+            resultDiv.className = data.available ? 'text-lg font-semibold text-green-600' : 'text-lg font-semibold text-red-600';
+        })
+    });
+</script>
+
+<script>
+    const resultDiv = document.getElementById('availabilityResult');
+resultDiv.classList.remove('hidden');
+resultDiv.style.display = "block"; // Make sure it's visible
+resultDiv.style.opacity = "1"; // Ensure it remains visible
+
+</script>
+
+<script>
+    document.getElementById('checkAvailabilityBtn').addEventListener('click', function () {
+    document.getElementById('bookingForm').dispatchEvent(new Event('submit'));
+});
+</script>
+
+<script>
+    // Get references to DOM elements
+const bookingForm = document.getElementById('bookingForm');
+const checkAvailabilityBtn = document.getElementById('checkAvailabilityBtn');
+const availabilityResult = document.getElementById('availabilityResult');
+
+// Function to show result message with better visibility
+function showResult(message, isSuccess) {
+    availabilityResult.innerHTML = message;
+    availabilityResult.classList.remove('hidden');
+    availabilityResult.className = `mt-4 p-4 text-lg font-semibold ${
+        isSuccess ? 'text-green-600 bg-green-100' : 'text-red-600 bg-red-100'
+    } rounded-lg text-center`;
+}
+
+// Function to validate dates
+function validateDates(checkIn, checkOut) {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    
+    const checkInDate = new Date(checkIn);
+    const checkOutDate = new Date(checkOut);
+    
+    if (checkInDate < today) {
+        showResult('Check-in date cannot be in the past', false);
+        return false;
+    }
+    
+    if (checkOutDate <= checkInDate) {
+        showResult('Check-out date must be after check-in date', false);
+        return false;
+    }
+    
+    return true;
+}
+
+// Enhanced form submission handler
+checkAvailabilityBtn.addEventListener('click', async function(e) {
+    e.preventDefault();
+    
+    const formData = new FormData(bookingForm);
+    const checkIn = formData.get('checkIn');
+    const checkOut = formData.get('checkOut');
+    const roomType = formData.get('roomType');
+    
+    // Debug logging
+    console.log('Submitting form with data:', {
+        checkIn,
+        checkOut,
+        roomType
+    });
+    
+    // Validate inputs
+    if (!checkIn || !checkOut) {
+        showResult('Please select both check-in and check-out dates', false);
+        return;
+    }
+    
+    if (!validateDates(checkIn, checkOut)) {
+        return;
+    }
+    
+    // Show loading state
+    checkAvailabilityBtn.disabled = true;
+    checkAvailabilityBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Checking...';
+    showResult('Checking availability...', true);
+    
+    try {
+        const response = await fetch('check-availability.php', {
+            method: 'POST',
+            body: formData
+        });
+        
+        console.log('Server response status:', response.status);
+        
+        const data = await response.json();
+        console.log('Server response data:', data);
+        
+        if (data.status === 'error') {
+            throw new Error(data.message || 'Server error occurred');
+        }
+        
+        showResult(data.message, data.available);
+        
+    } catch (error) {
+        console.error('Error details:', error);
+        showResult(`Unable to check availability. Please try again later. (Error: ${error.message})`, false);
+    } finally {
+        // Reset button state
+        checkAvailabilityBtn.disabled = false;
+        checkAvailabilityBtn.innerHTML = 'Check Availability';
+    }
+});
+
+// Add connection test on page load
+window.addEventListener('load', function() {
+    fetch('check-availability.php', {
+        method: 'POST',
+        body: new FormData()
+    })
+    .then(response => response.json())
+    .then(data => console.log('Initial connection test:', data))
+    .catch(error => console.error('Connection test failed:', error));
+});
+</script>
+<script>
+    let allReviews = [];
+    let displayedReviews = window.innerWidth < 768 ? 3 : 8;
+
+    document.getElementById('reviewForm').addEventListener('submit', function (e) {
+        e.preventDefault();
+        
+        const name = document.getElementById('name').value;
+        const review = document.getElementById('review').value;
+        const rating = document.getElementById('rating').value;
+        const password = document.getElementById('password').value;
+        
+        fetch('submit_review.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ name, review, rating, password })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                fetchReviews();
+                document.getElementById('reviewForm').reset();
+            } else {
+                alert('Failed to submit review. Please try again.');
+            }
+        });
+    });
+
+    function fetchReviews() {
+        fetch('fetch_reviews.php')
+        .then(response => response.json())
+        .then(reviews => {
+            if (!Array.isArray(reviews) || reviews.length === 0) {
+                console.error("No reviews found or invalid data:", reviews);
+                return;
+            }
+            allReviews = reviews;
+            renderReviews();
+        })
+        .catch(error => console.error("Error fetching reviews:", error));
+    }
+
+    function renderReviews() {
+        const container = document.getElementById('reviewsContainer');
+        container.innerHTML = '';
+        allReviews.slice(0, displayedReviews).forEach(review => {
+            if (!review.id) {
+                console.error("Missing review ID:", review);
+                return;
+            }
+
+            let reviewDate = 'Unknown Date';
+            if (review.created_at) {
+                const formattedDate = review.created_at.replace(' ', 'T');
+                const dateObj = new Date(formattedDate);
+                if (!isNaN(dateObj.getTime())) {
+                    reviewDate = dateObj.toLocaleDateString();
+                }
+            }
+            const reviewCard = `<div class='review-card p-4 bg-white shadow rounded-lg relative'>
+                <button class='delete-btn absolute top-2 right-2 text-red-500 text-xs' data-id='${review.id}'>✖</button>
+                <h4 class='font-semibold'>${review.name}</h4>
+                <p>${review.review}</p>
+                <p class='text-yellow-500'>${'★'.repeat(review.rating) + '☆'.repeat(5 - review.rating)}</p>
+                <p class='review-date absolute bottom-2 right-2 md:relative md:right-auto'>${reviewDate}</p>
+            </div>`;
+            container.innerHTML += reviewCard;
+        });
+
+        document.querySelectorAll('.delete-btn').forEach(button => {
+            button.addEventListener('click', function () {
+                const reviewId = this.getAttribute('data-id');
+                if (!reviewId) {
+                    alert("Error: Review ID missing!");
+                    return;
+                }
+
+                const userPassword = prompt("Enter the password you used when submitting the review:");
+                if (userPassword) {
+                    deleteReview(reviewId, userPassword);
+                }
+            });
+        });
+
+        const showMoreButton = document.getElementById('showMoreReviews');
+        showMoreButton.classList.toggle('hidden', allReviews.length <= displayedReviews);
+    }
+
+    function deleteReview(reviewId, password) {
+        fetch('delete_review.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ id: reviewId, password: password })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert("Review deleted successfully.");
+                location.reload(); // Reload the page after deleting
+            } else {
+                alert("Failed to delete review: " + data.error);
+            }
+        })
+        .catch(error => console.error("Error deleting review:", error));
+    }
+
+    document.getElementById('showMoreReviews').addEventListener('click', function() {
+        displayedReviews += 8;
+        renderReviews();
+    });
+
+    document.addEventListener('DOMContentLoaded', fetchReviews);
+</script>
+<script>
+    // JavaScript for scroll animations
+    document.addEventListener('DOMContentLoaded', function() {
+      // Get all elements with animation classes
+      const fadeElements = document.querySelectorAll('.fade-in, .slide-in-left, .slide-in-right');
+      
+      // Initial check for elements in viewport
+      checkScroll();
+      
+      // Check elements on scroll
+      window.addEventListener('scroll', checkScroll);
+      
+      function checkScroll() {
+        fadeElements.forEach(element => {
+          const elementTop = element.getBoundingClientRect().top;
+          const elementVisible = 150; // Adjust this value as needed
+          
+          if (elementTop < window.innerHeight - elementVisible) {
+            element.classList.add('visible');
+          } else {
+            element.classList.remove('visible');
+          }
+        });
+      }
+      
+      // Optional: Add smooth scrolling for anchor links
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+          e.preventDefault();
+          
+          document.querySelector(this.getAttribute('href')).scrollIntoView({
+            behavior: 'smooth'
+          });
+        });
+      });
+    });
+    </script>
+</body>
+</html>

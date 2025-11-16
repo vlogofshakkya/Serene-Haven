@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Serene Haven - Login</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="icon" type="image/png" href="logo/logo2.png">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        .font-playfair {
+            font-family: 'Playfair Display', serif;
+        }
+        .font-poppins {
+            font-family: 'Poppins', sans-serif;
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-gradient-to-b from-blue-50 to-blue-100 font-poppins">
+    <div class="min-h-screen flex items-center justify-center p-4">
+        <div class="max-w-md w-full space-y-8">
+            <!-- Logo and Header -->
+            <div class="text-center">
+                <!-- Added Logo Image -->
+                <div class="flex justify-center mb-6">
+                    <img src="logo/logo1.png" alt="Serene Haven Logo" class="h-24 w-auto">
+                </div>
+                <h1 class="text-4xl font-playfair font-bold text-blue-900">SERENE HAVEN</h1>
+                <p class="mt-2 text-lg text-blue-600 italic">Your luxurious escape awaits</p>
+            </div>
+
+            <!-- Login Card -->
+            <div class="bg-white/90 backdrop-blur-sm rounded-lg shadow-xl p-8 space-y-6">
+                <div class="text-center">
+                    <h2 class="text-2xl font-semibold text-gray-900">Welcome Back</h2>
+                    <p class="mt-2 text-sm text-gray-600">Please sign in to access your account</p>
+                    <p class="mt-2 text-sm text-red-600">Only staff</p>
+                </div>
+
+                <form action="login.php" method="POST" class="space-y-6">
+                    <div class="space-y-2">
+                        <label for="email" class="block text-sm font-medium text-gray-700">
+                            Username
+                        </label>
+                        <input
+                            id="username"
+                            name="username"
+                            type="text"
+                            required
+                            class="w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-gray-900"
+                            placeholder="Username"
+                        />
+                    </div>
+
+                    <div class="space-y-2">
+                        <label for="password" class="block text-sm font-medium text-gray-700">
+                            Password
+                        </label>
+                        <input
+                            id="password"
+                            name="password"
+                            type="password"
+                            required
+                            class="w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                            placeholder="••••••••"
+                        />
+                    </div>
+
+                    <button
+                        type="submit"
+                        value="Sign In"
+                        class="w-full py-3 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200"
+                    >
+                        Sign In
+                    </button>
+                </form>
+            </div>
+
+            <!-- Footer -->
+            <div class="text-center text-sm text-gray-600">
+                <p>© 2025 Serene Haven. All rights reserved.</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
